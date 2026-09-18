@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="es" data-tema-pref="sistema">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Sistemas y Tableros · Plásticos Carmen</title>
+<meta name="description" content="Plataforma de acceso a los sistemas, tableros y sitios del Departamento de IT de Plásticos Carmen S.R.L.">
+
+<!-- El tema se resuelve ANTES de pintar para que no haya parpadeo blanco. -->
+<script>
+(function () {
+  var raiz = document.documentElement, pref = 'sistema';
+  try { pref = localStorage.getItem('pc-tema') || 'sistema'; } catch (e) {}
+  raiz.dataset.temaPref = pref;
+  var oscuro = pref === 'oscuro' ||
+    (pref === 'sistema' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  raiz.dataset.tema = oscuro ? 'oscuro' : 'claro';
+})();
+</script>
+
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<meta name="theme-color" content="#063381">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/marca.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/tema.css">
+<link rel="stylesheet" href="css/sitio.css">
+</head>
+<body class="pagina-portal">
+
+<a class="btn btn--primario sr" href="#contenido">Saltar al contenido</a>
+
+<header class="barra-sup">
+  <a class="marca" href="./" aria-label="Sistemas y Tableros, ir al inicio">
+    <img class="logo-marca" src="img/logo-pc.png" width="46" height="34" alt="Plásticos Carmen">
+    <div class="nombre">Plásticos<br>Carmen</div>
+  </a>
+  <div class="divisor"></div>
+  <div class="titulo">
+    <h1>Sistemas y Tableros</h1>
+    <p>Departamento de IT · Plásticos Carmen S.R.L.</p>
+  </div>
+
+  <nav class="nav-secciones" aria-label="Secciones de la portada">
+    <a href="#tableros">Tableros</a>
+    <a href="#sistemas">Sistemas</a>
+    <a href="#sitios">Sitios y servicios</a>
+  </nav>
+
+  <div class="sesion">
+    <button type="button" class="btn btn--fantasma btn--icono btn-tema" id="btnTema"
+            title="Apariencia" aria-label="Cambiar apariencia">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="icono icono-sol"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="icono icono-luna"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg>
+      <span class="punto-sistema" aria-hidden="true"></span>
+    </button>
+  </div>
+</header>
+
+<main id="contenido">
+<div class="envoltura">
+
+  <!-- ====================== Portada ====================== -->
+  <section class="portada">
+    <div class="portada-texto">
+      <p class="portada-fecha" id="fecha"></p>
+      <h2 id="saludo">Bienvenido</h2>
+      <p class="portada-bajada">Un solo punto de entrada a lo que construye el Departamento de IT:
+        los tableros de gestión, los sistemas internos y los sitios de la empresa.
+        Los tableros procesan los datos en tu propio navegador; los sistemas con datos internos
+        piden su propio acceso.</p>
+    </div>
+
+    <aside class="pulso" aria-labelledby="pulso-tit">
+      <p class="pulso-cab" id="pulso-tit">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="icono"><path d="M3 12h4l3 7 4-16 3 9h4"/></svg>
+        Pulso de la transformación
+      </p>
+      <div class="pulso-rejilla" id="pulsoRejilla"></div>
+      <div class="pulso-pie">
+        <span id="pulsoFecha"></span>
+        <a class="btn btn--fantasma btn--sm" href="portafolio/">Ver el tablero completo
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="icono"><path d="m9 6 6 6-6 6"/></svg>
+        </a>
+      </div>
+    </aside>
+  </section>
+
+  <!-- ====================== Buscador ====================== -->
+  <div class="buscador" role="search">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="icono"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+    <input type="search" id="buscar-tarjetas" placeholder="Buscar un tablero, un sistema o un sitio…" autocomplete="off" aria-label="Buscar en la portada">
+    <span class="buscador-atajo" aria-hidden="true">/</span>
+  </div>
+  <p class="sin-resultados" id="sin-resultados" hidden>Nada coincide con la búsqueda.</p>
+
+  <!-- ====================== Tableros ====================== -->
+  <section class="seccion" id="tableros">
+    <header class="seccion-cabecera">
+      <h2>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="icono"><rect x="3" y="3" width="8" height="10" rx="1.5"/><rect x="13" y="3" width="8" height="6" rx="1.5"/><rect x="13" y="11" width="8" height="10" rx="1.5"/><rect x="3" y="15" width="8" height="6" rx="1.5"/></svg>
+        Tableros de gestión
+        <span class="cuenta" data-cuenta="tableros">0</span>
+      </h2>
+      <p>Abiertos, sin contraseña y sin servidor: los datos se cargan y se calculan en tu propio
+        navegador, y nada sale de tu equipo.</p>
+    </header>
+
+    <div class="rejilla rejilla--tableros">
+
+      <article class="tarjeta" data-tarjeta
+               data-buscar="portafolio transformación iniciativas actividades kpi gerencial directorio embudo métricas avance cumplimiento">
+        <a class="tarjeta-vista tarjeta-enlace" href="portafolio/" aria-label="Abrir el tablero gerencial del Portafolio">
+          <span class="tarjeta-etiqueta tarjeta-etiqueta--nuevo">Nuevo</span>
+          <img src="img/tarjetas/power-bi.svg" width="320" height="150" alt="" loading="lazy">
+        </a>
+        <div class="tarjeta-cuerpo">
+          <h3>Portafolio · Tablero Gerencial y de Directorio</h3>
+          <p>KPIs de la cartera, embudo de maduración, curva S de compromisos contra cierres,
+            mapa de calor por área y etapa, carga por responsable y explorador de iniciativas
+            y actividades con sus documentos y comentarios.</p>
+          <div class="tarjeta-etiquetas">
+            <span class="etiqueta">Directorio</span>
+            <span class="etiqueta">Gerencia</span>
+            <span class="etiqueta">Seguimiento de proyectos</span>
+          </div>
+          <small class="tarjeta-dominio">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="icono"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1.5 1.5M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1.5-1.5"/></svg>
+            este sitio · /portafolio
+          </small>
+        </div>
+        <div class="tarjeta-acciones">
+          <a class="btn btn--primario" href="portafolio/">Entrar
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="icono"><path d="m9 6 6 6-6 6"/></svg>
+          </a>
+          <a class="btn btn--fantasma" href="https://portafolio.plasticoscarmen.com" target="_blank" rel="noopener">Ver el cronograma</a>
+        </div>
+      </article>
+
+      <article class="tarjeta" data-tarjeta
+               data-buscar="control de asistencia tablero gestión rrhh gerencia planta atrasos faltas horas extra puntualidad permanencia">
+        <a class="tarjeta-vista tarjeta-enlace" href="asistencia/" aria-label="Abrir el tablero de Control de Asistencia">
+          <span class="tarjeta-etiqueta">v13</span>
+          <img src="img/tarjetas/asistencia.svg" width="320" height="150" alt="" loading="lazy">
+        </a>
+        <div class="tarjeta-cuerpo">
+          <h3>Control de Asistencia · Tablero de Gestión</h3>
+          <p>Vistas de Gerencia, RR.HH. y Planta con indicadores de asistencia, puntualidad,
+            permanencia, salida anticipada y horas extra, con filtrado cruzado en todos los
+            gráficos y perfiles de jornada configurables.</p>
+          <div class="tarjeta-etiquetas">
+            <span class="etiqueta">RR.HH.</span>
+            <span class="etiqueta">Planta</span>
+            <span class="etiqueta">7 secciones</span>
+          </div>
+          <small class="tarjeta-dominio">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="icono"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1.5 1.5M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1.5-1.5"/></svg>
+            este sitio · /asistencia
+          </small>
+        </div>
+        <div class="tarjeta-acciones">
+          <a class="btn btn--primario" href="asistencia/">Entrar
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="icono"><path d="m9 6 6 6-6 6"/></svg>
+          </a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ====================== Sistemas ====================== -->
+  <section class="seccion" id="sistemas">
+    <header class="seccion-cabecera">
+      <h2>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="icono"><rect x="7" y="7" width="10" height="10" rx="1.5"/><path d="M10 10h4v4h-4zM9 3v4M15 3v4M9 17v4M15 17v4M3 9h4M3 15h4M17 9h4M17 15h4"/></svg>
+        Sistemas propios
+        <span class="cuenta" data-cuenta="sistemas">0</span>
+      </h2>
+      <p>Desarrollados por el Departamento de IT. Piden usuario y contraseña propios; si olvidaste
+        el tuyo, TI lo restablece.</p>
+    </header>
+
+    <div class="rejilla">
+
+      <article class="tarjeta" data-tarjeta
+               data-buscar="portafolio de transformación iniciativas actividades gantt cronograma laravel">
+        <a class="tarjeta-vista tarjeta-enlace" href="https://portafolio.plasticoscarmen.com" target="_blank" rel="noopener" aria-label="Abrir el Portafolio de Transformación">
+          <img src="img/tarjetas/portafolio.svg" width="320" height="150" alt="" loading="lazy">
+        </a>
+        <div class="tarjeta-cuerpo">
+          <h3>Portafolio de Transformación</h3>
+          <p>Registro y seguimiento de iniciativas y actividades, con cronograma, responsables
+            y porcentajes de avance.</p>
+          <small class="tarjeta-dominio">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="icono"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1.5 1.5M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1.5-1.5"/></svg>
+            portafolio.plasticoscarmen.com
+          </small>
+        </div>
+        <div class="tarjeta-acciones">
+          <a class="btn btn--primario" href="https://portafolio.plasticoscarmen.com" target="_blank" rel="noopener">Ingresar
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="icono"><path d="m9 6 6 6-6 6"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <article class="tarjeta" data-tarjeta
+               data-buscar="portafolio de reportes bi power bi tableros departamentos áreas permisos">
+        <a class="tarjeta-vista tarjeta-enlace" href="https://portafolio-reportes-bi.onrender.com" target="_blank" rel="noopener" aria-label="Abrir el Portafolio de Reportes BI">
+          <img src="img/tarjetas/power-bi.svg" width="320" height="150" alt="" loading="lazy">
+        </a>
+        <div class="tarjeta-cuerpo">
+          <h3>Portafolio de Reportes BI</h3>
+          <p>Menú de accesos y tableros de Power BI por departamento y área, con permisos por
+            usuario y favoritos.</p>
+          <small class="tarjeta-dominio">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="icono"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1.5 1.5M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1.5-1.5"/></svg>
+            portafolio-reportes-bi.onrender.com
+          </small>
+        </div>
+        <div class="tarjeta-acciones">
+          <a class="btn btn--primario" href="https://portafolio-reportes-bi.onrender.com" target="_blank" rel="noopener">Ingresar
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="icono"><path d="m9 6 6 6-6 6"/></svg>
+          </a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ====================== Sitios y servicios ====================== -->
+  <section class="seccion" id="sitios">
+    <header class="seccion-cabecera">
+      <h2>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="icono"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/></svg>
+        Sitios y servicios
+        <span class="cuenta" data-cuenta="sitios">0</span>
+      </h2>
+      <p>La presencia pública de la empresa y la plataforma de trabajo diaria.</p>
+    </header>
+
+    <div class="rejilla">
+
+      <article class="tarjeta" data-tarjeta
+               data-buscar="sitio web plásticos carmen página pública productos plantas contacto">
+        <a class="tarjeta-vista tarjeta-enlace" href="https://www.plasticoscarmen.com" target="_blank" rel="noopener" aria-label="Abrir el sitio web de Plásticos Carmen">
+          <img src="img/tarjetas/web-pc.svg" width="320" height="150" alt="" loading="lazy">
+        </a>
+        <div class="tarjeta-cuerpo">
+          <h3>Sitio web Plásticos Carmen</h3>
+          <p>Página pública de la empresa: línea de productos, plantas y contacto comercial.</p>
+          <small class="tarjeta-dominio">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="icono"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1.5 1.5M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1.5-1.5"/></svg>
+            plasticoscarmen.com
+          </small>
+        </div>
+        <div class="tarjeta-acciones">
+          <a class="btn btn--primario" href="https://www.plasticoscarmen.com" target="_blank" rel="noopener">Visitar
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="icono"><path d="m9 6 6 6-6 6"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <article class="tarjeta" data-tarjeta
+               data-buscar="materia prima distribuidores insumos cotizador proformas">
+        <a class="tarjeta-vista tarjeta-enlace" href="https://www.materiaprima.com.bo" target="_blank" rel="noopener" aria-label="Abrir el sitio de Materia Prima">
+          <img src="img/tarjetas/materia-prima.svg" width="320" height="150" alt="" loading="lazy">
+        </a>
+        <div class="tarjeta-cuerpo">
+          <h3>Materia Prima S.R.L.</h3>
+          <p>Sitio comercial de la distribuidora de insumos y materias primas del grupo.</p>
+          <small class="tarjeta-dominio">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="icono"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1.5 1.5M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1.5-1.5"/></svg>
+            materiaprima.com.bo
+          </small>
+        </div>
+        <div class="tarjeta-acciones">
+          <a class="btn btn--primario" href="https://www.materiaprima.com.bo" target="_blank" rel="noopener">Visitar
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="icono"><path d="m9 6 6 6-6 6"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <article class="tarjeta" data-tarjeta
+               data-buscar="microsoft 365 outlook teams sharepoint correo office archivos agenda">
+        <a class="tarjeta-vista tarjeta-enlace" href="https://www.microsoft365.com" target="_blank" rel="noopener" aria-label="Abrir Microsoft 365">
+          <img src="img/tarjetas/microsoft-365.svg" width="320" height="150" alt="" loading="lazy">
+        </a>
+        <div class="tarjeta-cuerpo">
+          <h3>Microsoft 365</h3>
+          <p>Correo, Teams, SharePoint y archivos de la empresa. Entra con tu cuenta
+            @plasticoscarmen.com.</p>
+          <small class="tarjeta-dominio">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="icono"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1.5 1.5M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1.5-1.5"/></svg>
+            microsoft365.com
+          </small>
+        </div>
+        <div class="tarjeta-acciones">
+          <a class="btn btn--primario" href="https://www.microsoft365.com" target="_blank" rel="noopener">Ingresar
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="icono"><path d="m9 6 6 6-6 6"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <article class="tarjeta" data-tarjeta
+               data-buscar="sharepoint dirección directorio documentos actas informes gerencia">
+        <a class="tarjeta-vista tarjeta-enlace" href="https://plasticoscarmenbo.sharepoint.com" target="_blank" rel="noopener" aria-label="Abrir el SharePoint de Dirección">
+          <img src="img/tarjetas/sharepoint-direccion.svg" width="320" height="150" alt="" loading="lazy">
+        </a>
+        <div class="tarjeta-cuerpo">
+          <h3>SharePoint · Dirección</h3>
+          <p>Documentos, actas e informes del Directorio y de la Gerencia General.</p>
+          <small class="tarjeta-dominio">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="icono"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1.5 1.5M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1.5-1.5"/></svg>
+            plasticoscarmenbo.sharepoint.com
+          </small>
+        </div>
+        <div class="tarjeta-acciones">
+          <a class="btn btn--primario" href="https://plasticoscarmenbo.sharepoint.com" target="_blank" rel="noopener">Ingresar
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="icono"><path d="m9 6 6 6-6 6"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <article class="tarjeta" data-tarjeta
+               data-buscar="sharepoint sistemas ti informes semanales bitácora documentación">
+        <a class="tarjeta-vista tarjeta-enlace" href="https://plasticoscarmenbo.sharepoint.com" target="_blank" rel="noopener" aria-label="Abrir el SharePoint de Sistemas">
+          <img src="img/tarjetas/sharepoint-sistemas.svg" width="320" height="150" alt="" loading="lazy">
+        </a>
+        <div class="tarjeta-cuerpo">
+          <h3>SharePoint · Sistemas</h3>
+          <p>Documentación del Departamento de IT, informes semanales y respaldo de los
+            desarrollos.</p>
+          <small class="tarjeta-dominio">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="icono"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1.5 1.5M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1.5-1.5"/></svg>
+            plasticoscarmenbo.sharepoint.com
+          </small>
+        </div>
+        <div class="tarjeta-acciones">
+          <a class="btn btn--primario" href="https://plasticoscarmenbo.sharepoint.com" target="_blank" rel="noopener">Ingresar
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="icono"><path d="m9 6 6 6-6 6"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <article class="tarjeta" data-tarjeta
+               data-buscar="distribuidores red comercial mapa puntos de venta">
+        <a class="tarjeta-vista tarjeta-enlace" href="https://www.plasticoscarmen.com" target="_blank" rel="noopener" aria-label="Abrir la red de distribuidores">
+          <img src="img/tarjetas/distribuidores.svg" width="320" height="150" alt="" loading="lazy">
+        </a>
+        <div class="tarjeta-cuerpo">
+          <h3>Red de distribuidores</h3>
+          <p>Dónde encontrar los productos de Plásticos Carmen en todo el país.</p>
+          <small class="tarjeta-dominio">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="icono"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1.5 1.5M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1.5-1.5"/></svg>
+            plasticoscarmen.com
+          </small>
+        </div>
+        <div class="tarjeta-acciones">
+          <a class="btn btn--primario" href="https://www.plasticoscarmen.com" target="_blank" rel="noopener">Visitar
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="icono"><path d="m9 6 6 6-6 6"/></svg>
+          </a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <footer class="pie-marca">
+    <span>Copyright © <span id="anio">2026</span> Plásticos Carmen. Todos los derechos reservados.
+      Desarrollado por el Departamento de IT.</span>
+    <span class="version">sitio público · versión 2.0.0</span>
+  </footer>
+
+</div>
+</main>
+
+<script src="portafolio/resumen.js"></script>
+<script src="js/portal.js"></script>
+</body>
+</html>
