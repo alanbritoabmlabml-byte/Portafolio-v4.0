@@ -1,0 +1,388 @@
+/* ==========================================================================
+   Base compartida · Plásticos Carmen
+   Paleta de marca: #E00613 (rojo) · #063381 (azul)
+   La cargan todas las páginas antes de su hoja específica.
+   ========================================================================== */
+
+:root{
+  /* ---- Colores de marca ---- */
+  --rojo:        #E00613;
+  --rojo-oscuro: #a8040e;
+  --rojo-tenue:  #fdebec;
+  --azul:        #063381;
+  --azul-medio:  #2b56a6;
+  --azul-suave:  #93a6cb;
+  --azul-tenue:  #e8edf6;
+  /* Único color fuera del par de marca: es el verde de «Concluido», que se
+     pidió explícitamente. --verde pinta, --verde-oscuro escribe (el claro
+     sobre blanco no llega al contraste de un texto de 12px). */
+  --verde:        #1f8a4c;
+  --verde-oscuro: #15693a;
+  --verde-tenue:  #e7f5ec;
+  /* ---- Neutros derivados del azul ---- */
+  --tinta:      #04205a;
+  --texto:      #232c42;
+  --texto-suave:#6a7592;
+  --borde:      #e0e5ef;
+  --fondo:      #f4f6fa;
+  --papel:      #ffffff;
+  /* ---- Estados del cronograma ---- */
+  --e-concluido:  #063381;
+  --e-proceso:    #2b56a6;
+  --e-atrasado:   #E00613;
+  --e-bloqueado:  #04205a;
+  --e-noiniciado: #c5cddd;
+  /* Bloqueado se dibuja rayado para distinguirse sin salir de la paleta */
+  --patron-bloqueado: repeating-linear-gradient(135deg,#04205a 0 7px,#93a6cb 7px 14px);
+  /* ---- Tipografía ---- */
+  --fuente: "Poppins", "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+/* El [hidden]{display:none} que trae el navegador es de especificidad cero:
+   cualquier regla de autor que fije `display` (.btn, .menu-fila, .fila-edicion)
+   le gana y el elemento sigue a la vista. Con !important, poner el atributo
+   `hidden` desde el JS oculta de verdad, sin tener que repetir la excepcion
+   componente por componente. */
+[hidden]{display:none!important}
+body{
+  font-family:var(--fuente);
+  background:var(--fondo);color:var(--texto);font-size:13.5px;
+  -webkit-font-smoothing:antialiased;
+}
+/* Rotulo para lectores de pantalla: fuera de la vista pero no oculto.
+   No se usa display:none, que lo borraria tambien del arbol accesible. */
+.oculto-visual{
+  position:absolute;width:1px;height:1px;
+  padding:0;margin:-1px;overflow:hidden;
+  clip-path:inset(50%);white-space:nowrap;border:0;
+}
+
+/* Los controles de formulario no heredan la fuente por defecto */
+button,input,select,textarea{font-family:inherit}
+a{color:var(--azul)}
+
+/* ---------- Botones ---------- */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:7px;
+  border:1px solid transparent;border-radius:7px;padding:8px 15px;
+  font-size:12.5px;font-weight:600;letter-spacing:.2px;
+  cursor:pointer;text-decoration:none;white-space:nowrap;
+}
+.btn:focus-visible{outline:2px solid var(--rojo);outline-offset:2px}
+.btn--primario{background:var(--azul);color:#fff}
+.btn--primario:hover{background:var(--tinta)}
+.btn--peligro{background:var(--rojo);color:#fff}
+.btn--peligro:hover{background:var(--rojo-oscuro)}
+.btn--fantasma{background:var(--papel);color:var(--azul);border-color:var(--borde)}
+.btn--fantasma:hover{background:var(--azul-tenue);border-color:var(--azul-suave)}
+.btn--sm{padding:5px 10px;font-size:11.5px;border-radius:6px}
+/* Solo icono: se estrecha el relleno para que quede cuadrado. */
+.btn--icono{padding:8px 11px}
+.btn[disabled]{opacity:.55;cursor:not-allowed}
+
+/* ---------- Campos de formulario ---------- */
+.campo{display:block;margin-bottom:14px}
+.campo > label{
+  display:block;font-size:10.5px;font-weight:600;letter-spacing:.9px;
+  text-transform:uppercase;color:var(--azul);margin-bottom:5px;
+}
+.campo input,.campo select,.campo textarea{
+  width:100%;border:1px solid #c6d0e4;background:var(--papel);
+  padding:8px 10px;border-radius:6px;font-size:13.5px;color:var(--texto);
+}
+/* Solo alto: redimensionar el ancho rompe la rejilla del formulario */
+.campo textarea{resize:vertical;min-height:70px;max-height:340px}
+.campo input:focus-visible,.campo select:focus-visible,.campo textarea:focus-visible{
+  outline:2px solid var(--azul-medio);outline-offset:-1px;border-color:var(--azul-medio);
+}
+.campo--error input,.campo--error select{border-color:var(--rojo);background:var(--rojo-tenue)}
+.error{display:block;margin-top:5px;font-size:11.5px;font-weight:600;color:var(--rojo-oscuro)}
+
+/* ---------- Avisos ---------- */
+.alerta{
+  border-radius:8px;padding:11px 14px;font-size:12.5px;font-weight:500;
+  border:1px solid var(--borde);border-left:4px solid var(--azul);
+  background:var(--azul-tenue);color:var(--tinta);
+}
+.alerta--error{border-left-color:var(--rojo);background:var(--rojo-tenue);color:var(--rojo-oscuro)}
+
+/* ---------- Etiquetas de rol ---------- */
+.rol{
+  display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.5px;
+  padding:3px 10px;border-radius:20px;text-transform:uppercase;
+}
+.rol--administrador{background:var(--rojo-tenue);color:var(--rojo-oscuro)}
+.rol--supervisor{background:var(--azul-tenue);color:var(--azul)}
+.rol--lector{background:#eceff4;color:var(--texto-suave)}
+.rol--sin{background:#eceff4;color:var(--texto-suave);font-style:italic}
+
+/* ---------- Encabezado común ---------- */
+.barra-sup{background:var(--papel);padding:16px 24px;display:flex;align-items:center;gap:22px;flex-wrap:wrap;border-bottom:1px solid var(--borde)}
+.marca{display:flex;align-items:center;gap:13px}
+/* height:auto respeta la proporción si el ancho se reduce en pantallas chicas */
+.logo-marca{display:block;height:auto;max-width:100%}
+.marca .nombre{font-size:10.5px;font-weight:700;letter-spacing:1.9px;color:var(--azul);text-transform:uppercase;line-height:1.3}
+/* El título empuja filtros y sesión hacia la derecha */
+.titulo{margin-right:auto}
+.titulo h1{color:var(--azul);font-size:21px;font-weight:600;letter-spacing:-.3px}
+.titulo p{color:var(--texto-suave);font-size:13px;margin-top:1px}
+.divisor{width:1px;align-self:stretch;background:var(--borde)}
+
+/* ---------- Bloque de sesión ---------- */
+.sesion{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.sesion .quien{line-height:1.3;text-align:right}
+.sesion .quien b{display:block;font-size:12.5px;font-weight:600;color:var(--tinta)}
+.sesion form{display:inline}
+
+@media (max-width:820px){
+  .barra-sup{padding:12px 14px;gap:12px;row-gap:10px}
+  .divisor{display:none}
+  .titulo h1{font-size:17px}
+  .titulo p{font-size:11.5px}
+  .barra-sup .logo-marca{height:27px;width:auto}
+  .marca .nombre{font-size:9px;letter-spacing:1.4px}
+  .sesion{margin-left:auto}
+  .sesion .quien{text-align:left}
+}
+@media (max-width:760px){
+  .titulo h1{font-size:18px}
+}
+
+/* ---------- Casillas de verificación ---------- */
+.casillas{display:flex;flex-wrap:wrap;gap:10px 22px;margin-bottom:14px}
+.casilla{
+  display:flex;align-items:center;gap:8px;cursor:pointer;
+  font-size:13px;font-weight:500;color:var(--texto);
+}
+.casilla input{width:16px;height:16px;accent-color:var(--azul);cursor:pointer;flex:none}
+
+/* Nota explicativa dentro de un campo de formulario (valor calculado) */
+/* Hueco del estado calculado: ocupa la linea de un control, para que la
+   rejilla del formulario no baile respecto a los campos de al lado. */
+.estado-derivado{display:flex;align-items:center;min-height:35px}
+
+.campo-nota{
+  font-size:11.5px;color:var(--texto-suave);line-height:1.45;
+  background:var(--azul-tenue);border-radius:6px;padding:7px 10px;margin-bottom:10px;
+}
+
+/* ---------- Botón con desplegable (exportación) ----------
+   Construido sobre <details>/<summary>: abre sin JavaScript. */
+.menu-exp{position:relative;display:inline-block}
+.menu-exp > summary{
+  list-style:none;cursor:pointer;
+  /* Hereda .btn; solo hay que ocultar el triángulo nativo */
+}
+.menu-exp > summary::-webkit-details-marker{display:none}
+.menu-exp > summary::marker{content:""}
+
+/* right:0 en todos los tamanos: el boton vive pegado al borde derecho de su
+   cabecera, asi que la lista tiene que crecer hacia la IZQUIERDA. Con left:0
+   crecia hacia afuera y .tarjeta-panel, que lleva overflow:hidden por las
+   esquinas redondeadas, se comia la mitad de las opciones. */
+.menu-exp-lista{
+  position:absolute;top:calc(100% + 6px);right:0;z-index:40;
+  min-width:172px;padding:5px;
+  background:var(--papel);border:1px solid var(--borde);border-radius:9px;
+  box-shadow:0 10px 28px rgba(4,32,90,.16);
+}
+.menu-exp-lista a{
+  display:block;padding:8px 11px;border-radius:6px;
+  font-size:12.5px;font-weight:500;color:var(--texto);text-decoration:none;
+  white-space:nowrap;
+}
+.menu-exp-lista a:hover{background:var(--azul-tenue);color:var(--azul)}
+.menu-exp-lista a:focus-visible{outline:2px solid var(--azul-medio);outline-offset:-2px}
+
+/* Dentro de una cabecera azul el botón necesita contraste propio */
+.tarjeta-panel > header .menu-exp > summary,
+.panel-head .menu-exp > summary{
+  background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.35);
+}
+.tarjeta-panel > header .menu-exp > summary:hover,
+.panel-head .menu-exp > summary:hover{background:rgba(255,255,255,.22)}
+
+/* En pantalla estrecha anclar la lista al boton es una loteria: la cabecera se
+   apila y el boton acaba a un lado o al otro, asi que con right:0 se sale por
+   la izquierda y con left:0 por la derecha, y en ambos casos la recorta
+   .tarjeta-panel, que lleva overflow:hidden por las esquinas redondeadas.
+   Se ancla a la CABECERA y ocupa su ancho: no queda lado por el que salirse,
+   y de paso las opciones se tocan mejor. */
+@media (max-width:520px){
+  .tarjeta-panel > header{position:relative}
+  .tarjeta-panel > header .menu-exp{position:static}
+  .tarjeta-panel > header .menu-exp-lista{
+    top:100%;left:15px;right:15px;min-width:0;
+  }
+}
+
+
+/* ---------- Menú de acciones por fila ----------
+   Se abre en el punto donde se pulsó; lo posiciona public/js/menu-fila.js
+   en coordenadas de ventana, de ahí el position:fixed. */
+.menu-fila{
+  position:fixed;z-index:60;min-width:158px;padding:5px;
+  background:var(--papel);border:1px solid var(--borde);border-radius:9px;
+  box-shadow:0 12px 30px rgba(4,32,90,.2);
+}
+.menu-fila[hidden]{display:none}
+.menu-fila button{
+  display:flex;align-items:center;gap:9px;width:100%;
+  padding:8px 11px;border:none;border-radius:6px;background:transparent;
+  font-size:12.5px;font-weight:500;color:var(--texto);
+  text-align:left;cursor:pointer;
+}
+.menu-fila button svg{flex:none;opacity:.75}
+.menu-fila button:hover{background:var(--azul-tenue);color:var(--azul)}
+.menu-fila button:focus-visible{outline:2px solid var(--azul-medio);outline-offset:-2px}
+.menu-fila button.peligro:hover{background:var(--rojo-tenue);color:var(--rojo-oscuro)}
+
+/* Señal de que la fila responde al clic */
+[data-fila-menu]{cursor:pointer}
+
+/* ---------- Disparador visible del menú de fila ----------
+   El clic derecho no existe en táctil: el mantener-pulsado dispara
+   contextmenu de forma irregular según el navegador y, sobre todo, nadie
+   puede adivinarlo. Así que en cuanto el puntero es grueso aparece este
+   botón. Por defecto está oculto: cada pantalla decide dónde mostrarlo. */
+.abrir-menu{
+  display:none;
+  align-items:center;justify-content:center;
+  /* 32px de lado: el mínimo cómodo para un dedo */
+  width:32px;height:32px;padding:0;
+  border:1px solid var(--borde);border-radius:8px;
+  background:var(--papel);color:var(--texto-suave);
+  cursor:pointer;
+}
+.abrir-menu svg{fill:currentColor}
+.abrir-menu:hover{background:var(--azul-tenue);color:var(--azul);border-color:var(--azul-suave)}
+.abrir-menu:focus-visible{outline:2px solid var(--azul-medio);outline-offset:1px}
+
+/* Con el dedo las opciones del menú necesitan más alto para no fallar el toque */
+@media (any-pointer: coarse){
+  .menu-fila{min-width:184px}
+  .menu-fila button{padding:13px 14px;font-size:14px}
+}
+
+/* ---------- Desplegable con búsqueda ----------
+   Lo monta public/js/combo-buscador.js sobre un <select data-buscador>. */
+.combo{position:relative}
+/* El select nativo sigue en el DOM y sigue siendo el campo que se envía.
+   No se usa display:none: un campo required oculto así hace que el navegador
+   rechace el envío con "no es enfocable", sin decirle nada al usuario. */
+.combo-nativo{
+  position:absolute;width:1px;height:1px;
+  padding:0;margin:-1px;overflow:hidden;
+  clip-path:inset(50%);white-space:nowrap;border:0;
+}
+.combo-entrada{
+  width:100%;border:1px solid #c6d0e4;background:var(--papel);
+  padding:8px 10px;border-radius:6px;font-size:13.5px;color:var(--texto);
+}
+.combo-entrada:focus-visible{
+  outline:2px solid var(--azul-medio);outline-offset:-1px;border-color:var(--azul-medio);
+}
+.campo--error .combo-entrada{border-color:var(--rojo);background:var(--rojo-tenue)}
+
+.combo-lista{
+  position:absolute;top:calc(100% + 4px);left:0;right:0;z-index:45;
+  max-height:260px;overflow-y:auto;
+  margin:0;padding:4px;list-style:none;
+  background:var(--papel);border:1px solid var(--borde);border-radius:8px;
+  box-shadow:0 10px 26px rgba(4,32,90,.16);
+}
+.combo-lista li{
+  padding:8px 10px;border-radius:5px;font-size:13px;line-height:1.35;cursor:pointer;
+}
+.combo-lista li:hover,.combo-lista .combo-activo{background:var(--azul-tenue);color:var(--azul)}
+.combo-lista li[aria-selected="true"]{font-weight:600}
+.combo-nada{color:var(--texto-suave);font-style:italic;cursor:default}
+.combo-nada:hover{background:transparent;color:var(--texto-suave)}
+
+@media (any-pointer: coarse){
+  .combo-lista li{padding:12px 12px;font-size:14px}
+}
+
+/* En pantalla estrecha la lista deja de flotar y entra en el flujo.
+   Flotando la recortaba el contenedor que hace scroll (.modal-body lleva
+   overflow-y:auto), y en un movil el cuadro del modal es tan bajo que la
+   lista caia entera fuera de la parte visible: parecia que el campo no
+   tuviera buscador. Dentro del flujo empuja el contenido y siempre se ve. */
+@media (max-width:820px){
+  .combo-lista{
+    position:static;max-height:210px;
+    margin-top:5px;box-shadow:none;
+  }
+}
+
+/* ---------- Pastillas de nivel con semáforo ----------
+   Son radios de verdad: funcionan sin JavaScript, se recorren con el teclado
+   y un lector de pantalla los anuncia como grupo de opciones. */
+.pills{border:none;padding:0;margin:0 0 14px}
+.pills legend{
+  padding:0;margin-bottom:5px;
+  font-size:10.5px;font-weight:600;letter-spacing:.9px;
+  text-transform:uppercase;color:var(--azul);
+}
+.pills-grupo{display:flex;gap:6px;flex-wrap:wrap}
+
+.pill{position:relative;flex:1;min-width:66px;cursor:pointer}
+/* El radio se mantiene accesible pero fuera de la vista: sigue recibiendo
+   foco, así que el teclado y la validación nativa siguen funcionando. */
+.pill input{
+  position:absolute;width:1px;height:1px;
+  padding:0;margin:-1px;overflow:hidden;
+  clip-path:inset(50%);border:0;
+}
+.pill span{
+  display:block;padding:6px 9px;border-radius:16px;
+  border:1.5px solid var(--borde);background:var(--papel);
+  font-size:11.5px;font-weight:600;color:var(--texto-suave);
+  text-align:center;white-space:nowrap;
+  transition:background .12s ease, color .12s ease, border-color .12s ease;
+}
+.pill:hover span{border-color:var(--azul-suave)}
+.pill input:focus-visible + span{outline:2px solid var(--azul-medio);outline-offset:2px}
+
+/* Semáforo: el nivel más alto en rojo, el más bajo en verde, sin importar en
+   qué lugar de la fila caiga. El color solo aparece en la opción elegida; las
+   demás quedan neutras para que se vea de un golpe cuál está marcada. */
+.pill--alto  input:checked + span{background:var(--rojo);border-color:var(--rojo);color:#fff}
+.pill--medio input:checked + span{background:#c77700;border-color:#c77700;color:#fff}
+.pill--bajo  input:checked + span{background:#1f8a4c;border-color:#1f8a4c;color:#fff}
+
+/* ---------- Badge de nivel para las tablas ----------
+   Misma escala que las pastillas del formulario (alto/medio/bajo), pero en
+   tono claro: en una tabla hay muchos a la vez y el color saturado la
+   volvería ilegible. El tono lo decide el enum con nivel(). */
+.nivel{
+  display:inline-block;padding:2px 8px;border-radius:11px;
+  border:1px solid transparent;
+  font-size:11px;font-weight:600;line-height:1.6;white-space:nowrap;
+}
+.nivel--alto {background:#fdeaec;border-color:#f2c2c7;color:var(--rojo-oscuro)}
+.nivel--medio{background:#fdf2e0;border-color:#efd4a6;color:#8a5200}
+.nivel--bajo {background:#e7f5ec;border-color:#c0e3ce;color:#15693a}
+
+/* ---------- Pie de copyright ----------
+   Cierra todas las pantallas. Discreto: es un aviso legal, no un menu. */
+.pie-marca{
+  padding:18px 24px 26px;text-align:center;
+  font-size:11px;line-height:1.6;color:var(--texto-suave);
+}
+/* La versión va en su propia línea y más apagada: sirve para reportar una
+   incidencia, no es parte del aviso legal. */
+.pie-marca .version{display:block;margin-top:4px;opacity:.75}
+/* En un movil con barra inferior (o el indicador de inicio del iPhone) el
+   texto quedaba pegado al borde. env() vale 0 donde no hay recorte. */
+@supports (padding: max(0px, env(safe-area-inset-bottom))){
+  .pie-marca{padding-bottom:max(26px, env(safe-area-inset-bottom))}
+}
+
+/* ---------- Contador de caracteres ---------- */
+.contador{
+  display:block;margin-top:4px;text-align:right;
+  font-size:11px;color:var(--texto-suave);font-variant-numeric:tabular-nums;
+}
+.contador--tope{color:var(--rojo-oscuro);font-weight:600}

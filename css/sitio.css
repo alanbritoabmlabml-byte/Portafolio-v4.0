@@ -1,0 +1,196 @@
+/* ==========================================================================
+   Portada de Sistemas y Tableros · Plásticos Carmen
+   Va después de marca.css, base.css, menu.css y tema.css: aquí sólo están
+   las piezas propias de la portada (barra de navegación, portada, secciones
+   y tarjetas). Ninguna hoja compartida se toca.
+
+   MOBILE FIRST. Puntos de quiebre: 640 · 900 · 1200 px
+   ========================================================================== */
+
+/* ---------- Armazón ---------- */
+.pagina-portal{background:var(--fondo)}
+
+.envoltura{max-width:1320px;margin:0 auto;padding:0 16px}
+@media (min-width:900px){.envoltura{padding:0 28px}}
+
+/* ---------- Barra superior pegajosa ---------- */
+.barra-sup{position:sticky;top:0;z-index:30;backdrop-filter:saturate(1.4) blur(8px)}
+@supports (backdrop-filter:blur(8px)){
+  .barra-sup{background:color-mix(in srgb,var(--papel) 88%,transparent)}
+}
+.barra-sup .titulo h1{font-size:18px}
+@media (min-width:900px){.barra-sup .titulo h1{font-size:21px}}
+.barra-sup .sesion{gap:8px}
+
+/* Navegación por secciones, dentro de la barra */
+.nav-secciones{
+  display:none;gap:2px;margin-left:auto;margin-right:12px;
+  background:var(--fondo-hundido);border-radius:11px;padding:3px;
+}
+@media (min-width:1200px){.nav-secciones{display:flex}}
+.nav-secciones a{
+  padding:7px 13px;border-radius:9px;font-size:12.5px;font-weight:600;
+  color:var(--texto-suave);text-decoration:none;white-space:nowrap;
+}
+.nav-secciones a:hover{background:var(--papel);color:var(--azul)}
+.nav-secciones a[aria-current="true"]{background:var(--papel);color:var(--azul);box-shadow:var(--sombra-suave)}
+
+/* ==========================================================================
+   Portada (hero)
+   ========================================================================== */
+
+.portada{
+  display:grid;gap:22px;padding:30px 0 26px;grid-template-columns:1fr;
+}
+@media (min-width:900px){
+  .portada{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);align-items:center;padding:44px 0 34px}
+}
+.portada-fecha{
+  font-size:11px;font-weight:700;letter-spacing:1.3px;text-transform:uppercase;
+  color:var(--texto-suave);margin-bottom:9px;
+}
+.portada h2{
+  font-size:27px;font-weight:700;color:var(--tinta);letter-spacing:-.7px;line-height:1.15;
+}
+@media (min-width:900px){.portada h2{font-size:38px}}
+.portada h2 em{font-style:normal;color:var(--azul)}
+.portada-bajada{
+  font-size:14px;color:var(--texto-suave);line-height:1.65;margin-top:12px;max-width:52ch;
+}
+
+/* Panel de cifras vivas del Portafolio */
+.pulso{
+  background:var(--papel);border:1px solid var(--borde);border-radius:var(--radio);
+  padding:18px;box-shadow:var(--sombra-suave);
+}
+.pulso-cab{
+  display:flex;align-items:center;gap:9px;margin-bottom:14px;
+  font-size:11px;font-weight:700;letter-spacing:.9px;text-transform:uppercase;color:var(--texto-suave);
+}
+.pulso-cab .icono{color:var(--azul)}
+.pulso-rejilla{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media (min-width:640px){.pulso-rejilla{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media (min-width:900px){.pulso-rejilla{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:1200px){.pulso-rejilla{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.pulso-dato b{
+  display:block;font-size:25px;font-weight:700;color:var(--tinta);line-height:1.05;
+  letter-spacing:-.9px;font-variant-numeric:tabular-nums;
+}
+.pulso-dato span{display:block;font-size:11.5px;color:var(--texto-suave);margin-top:3px;line-height:1.35}
+.pulso-pie{
+  margin-top:15px;padding-top:13px;border-top:1px solid var(--borde);
+  display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;
+  font-size:11.5px;color:var(--texto-suave);
+}
+
+/* ==========================================================================
+   Buscador
+   ========================================================================== */
+
+.buscador{
+  /* tema.css la deja pegajosa con un desplazamiento; aquí vuelve al flujo
+     normal para que no se monte sobre la cabecera de la primera sección. */
+  position:relative;top:auto;z-index:1;
+  display:flex;align-items:center;gap:10px;
+  background:var(--papel);border:1px solid var(--borde);border-radius:12px;
+  padding:0 14px;box-shadow:var(--sombra-suave);margin-bottom:8px;
+}
+.buscador:focus-within{border-color:var(--azul-medio);box-shadow:0 0 0 3px var(--azul-tenue)}
+.buscador .icono{color:var(--texto-suave);flex:none}
+.buscador input{
+  flex:1;border:0;background:none;outline:0;padding:13px 0;
+  font-family:inherit;font-size:14px;color:var(--texto);min-width:0;
+}
+.buscador input::placeholder{color:var(--texto-suave)}
+.buscador-atajo{
+  display:none;font-size:11px;font-weight:700;color:var(--texto-suave);
+  border:1px solid var(--borde);border-radius:6px;padding:2px 7px;flex:none;
+}
+@media (min-width:640px){.buscador-atajo{display:block}}
+.sin-resultados{
+  text-align:center;padding:34px 16px;color:var(--texto-suave);font-size:13.5px;
+}
+
+/* ==========================================================================
+   Secciones y tarjetas
+   ========================================================================== */
+
+.seccion{margin:34px 0 0}
+.seccion-cabecera{margin-bottom:16px}
+.seccion-cabecera h2{
+  font-size:16px;font-weight:700;color:var(--tinta);display:flex;align-items:center;gap:9px;
+  letter-spacing:-.2px;
+}
+.seccion-cabecera h2 .icono{color:var(--azul);flex:none}
+.seccion-cabecera h2 .cuenta{
+  font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:20px;
+  background:var(--azul-tenue);color:var(--azul);
+}
+.seccion-cabecera p{font-size:13px;color:var(--texto-suave);margin-top:5px;line-height:1.6;max-width:70ch}
+
+.rejilla{display:grid;gap:14px;grid-template-columns:1fr}
+@media (min-width:640px){.rejilla{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:1200px){.rejilla{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+/* Tarjeta base */
+.tarjeta{
+  position:relative;display:flex;flex-direction:column;min-width:0;
+  background:var(--papel);border:1px solid var(--borde);border-radius:var(--radio);
+  overflow:hidden;box-shadow:var(--sombra-suave);
+  transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;
+}
+.tarjeta:hover{transform:translateY(-3px);box-shadow:var(--sombra-alta);border-color:var(--azul-suave)}
+.tarjeta:focus-within{border-color:var(--azul-medio);box-shadow:0 0 0 3px var(--azul-tenue)}
+@media (prefers-reduced-motion:reduce){.tarjeta,.tarjeta:hover{transition:none;transform:none}}
+
+.tarjeta-vista{display:block;position:relative;background:var(--fondo-hundido);line-height:0}
+.tarjeta-vista img{width:100%;height:auto;aspect-ratio:320/150;object-fit:cover;display:block}
+[data-tema="oscuro"] .tarjeta-vista img{filter:brightness(.84) saturate(.92)}
+
+.tarjeta-etiqueta{
+  position:absolute;top:10px;left:10px;z-index:2;
+  font-size:10.5px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;
+  background:var(--tinta);color:#fff;padding:3px 9px;border-radius:20px;
+}
+.tarjeta-etiqueta--nuevo{background:var(--rojo)}
+
+.tarjeta-cuerpo{padding:15px 16px 6px;flex:1;display:flex;flex-direction:column;gap:7px}
+.tarjeta-cuerpo h3{font-size:14.5px;font-weight:700;color:var(--tinta);line-height:1.35;letter-spacing:-.15px}
+.tarjeta-cuerpo p{font-size:12.5px;color:var(--texto-suave);line-height:1.6;flex:1}
+.tarjeta-etiquetas{display:flex;flex-wrap:wrap;gap:5px}
+.etiqueta{
+  font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:20px;
+  background:var(--fondo-hundido);color:var(--texto-suave);
+}
+.tarjeta-dominio{
+  display:flex;align-items:center;gap:5px;font-size:11px;color:var(--texto-suave);
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+.tarjeta-acciones{display:flex;gap:8px;padding:12px 16px 16px;flex-wrap:wrap}
+.tarjeta-acciones .btn{flex:1;justify-content:center;min-width:110px}
+
+/* El enlace principal cubre toda la tarjeta, pero los demás botones
+   siguen siendo pulsables porque se elevan por encima. */
+.tarjeta-enlace::after{content:"";position:absolute;inset:0;z-index:1}
+.tarjeta-acciones,.tarjeta-etiqueta{position:relative;z-index:2}
+
+/* Los dos tableros son la entrada principal: se quedan en dos columnas
+   anchas en vez de encogerse a tres, para que la ilustración respire. */
+.rejilla--tableros{grid-template-columns:1fr}
+@media (min-width:900px){.rejilla--tableros{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.rejilla--tableros .tarjeta-cuerpo h3{font-size:16px}
+
+/* ==========================================================================
+   Pie
+   ========================================================================== */
+
+.pie-marca{
+  margin-top:48px;padding:24px 0 34px;border-top:1px solid var(--borde);
+  font-size:12px;color:var(--texto-suave);line-height:1.7;
+  display:flex;flex-wrap:wrap;gap:6px 18px;justify-content:space-between;align-items:center;
+}
+.pie-marca .version{font-size:11px;opacity:.8}
+
+.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+  clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.sr:focus{position:static;width:auto;height:auto;margin:8px;clip:auto}
