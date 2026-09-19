@@ -1,0 +1,517 @@
+/* ==========================================================================
+   Capa de tema · Portafolio de Reportes BI v2
+   Se carga DESPUÉS de todas las hojas de la página, así que sus reglas ganan.
+
+   Tres cosas hace esta hoja:
+     1. Repinta la paleta: fondos neutros y el azul de marca solo como ACENTO
+        (títulos, botones principales, estados). Antes el azul ocupaba
+        cabeceras enteras y saturaba la vista.
+     2. Suma el modo noche. El tema activo se anuncia en <html data-tema>;
+        lo fija un script del <head> antes de pintar (ver layouts/app).
+     3. Lleva la interfaz a ancho completo: el contenido ya no se queda en una
+        columna centrada de ~1100px con los costados vacíos.
+   ========================================================================== */
+
+/* ---------- Tokens: tema claro ---------- */
+:root{
+  /* Superficies neutras: el color de marca deja de ser el fondo */
+  --fondo:       #f4f5f7;
+  --fondo-hundido:#eceef2;
+  --papel:       #ffffff;
+  --papel-alto:  #ffffff;   /* superficie elevada (paneles sobre paneles) */
+  --texto:       #1b2230;
+  --texto-suave: #5d6878;
+  --borde:       #e2e5ea;
+  --borde-fuerte:#cdd3db;
+
+  /* Azul: acento de texto e iconos */
+  --azul:        #0a3f96;
+  --azul-medio:  #2b56a6;
+  --azul-suave:  #9fb4d8;
+  --azul-tenue:  #eaf0fa;
+  --tinta:       #0b1f45;
+  /* Azul de relleno: el que lleva texto blanco encima */
+  --azul-solido: #063381;
+  --azul-solido-hover:#04255f;
+
+  --rojo:        #d9101d;
+  --rojo-oscuro: #a8040e;
+  --rojo-tenue:  #fdecee;
+
+  --verde:       #1f8a4c;
+  --verde-oscuro:#15693a;
+  --verde-tenue: #e8f5ed;
+
+  --ambar:       #b06a00;
+  --ambar-tenue: #fdf3e2;
+
+  --sombra-suave:0 1px 2px rgba(16,24,40,.05), 0 6px 16px rgba(16,24,40,.06);
+  --sombra-alta: 0 12px 32px rgba(16,24,40,.12);
+  --radio:14px;
+  --alto-barra:68px;
+  /* Monograma de marca que se usa de marca de agua en las tarjetas de área */
+  --marca-agua:url('../img/logo-pc.png');
+}
+
+/* ---------- Tokens: modo noche ---------- */
+[data-tema="oscuro"]{
+  --fondo:       #0f131a;
+  --fondo-hundido:#0a0d13;
+  --papel:       #171d27;
+  --papel-alto:  #1e2631;
+  --texto:       #e7ecf3;
+  --texto-suave: #9aa6b6;
+  --borde:       #29323f;
+  --borde-fuerte:#3a4655;
+
+  --azul:        #93b4f7;   /* acento legible sobre superficie oscura */
+  --azul-medio:  #6f9bef;
+  --azul-suave:  #46557a;
+  --azul-tenue:  #1b2942;
+  --tinta:       #dbe6fb;
+  --azul-solido: #2f63cf;
+  --azul-solido-hover:#3c73e6;
+
+  --rojo:        #ff6b74;
+  --rojo-oscuro: #ff9199;
+  --rojo-tenue:  #34191d;
+
+  --verde:       #4ac07d;
+  --verde-oscuro:#7bd3a1;
+  --verde-tenue: #14291e;
+
+  --ambar:       #e8b063;
+  --ambar-tenue: #302614;
+
+  --sombra-suave:0 1px 2px rgba(0,0,0,.4), 0 6px 16px rgba(0,0,0,.35);
+  --sombra-alta: 0 14px 36px rgba(0,0,0,.55);
+  color-scheme: dark;
+}
+
+/* Sin JavaScript el navegador decide igual */
+@media (prefers-color-scheme: dark){
+  :root:not([data-tema="claro"]){
+    --fondo:#0f131a; --fondo-hundido:#0a0d13; --papel:#171d27; --papel-alto:#1e2631;
+    --texto:#e7ecf3; --texto-suave:#9aa6b6; --borde:#29323f; --borde-fuerte:#3a4655;
+    --azul:#93b4f7; --azul-medio:#6f9bef; --azul-suave:#46557a; --azul-tenue:#1b2942;
+    --tinta:#dbe6fb; --azul-solido:#2f63cf; --azul-solido-hover:#3c73e6;
+    --rojo:#ff6b74; --rojo-oscuro:#ff9199; --rojo-tenue:#34191d;
+    --verde:#4ac07d; --verde-oscuro:#7bd3a1; --verde-tenue:#14291e;
+    --ambar:#e8b063; --ambar-tenue:#302614;
+    --sombra-suave:0 1px 2px rgba(0,0,0,.4), 0 6px 16px rgba(0,0,0,.35);
+    --sombra-alta:0 14px 36px rgba(0,0,0,.55);
+    color-scheme: dark;
+  }
+}
+
+body{background:var(--fondo);color:var(--texto)}
+a{color:var(--azul)}
+
+/* ==========================================================================
+   Ancho completo
+   ========================================================================== */
+.contenido{max-width:1240px;padding:22px clamp(16px,3vw,40px) 44px}
+.contenido--ancha{max-width:none}
+
+/* ==========================================================================
+   Encabezado
+   ========================================================================== */
+.barra-sup{
+  background:var(--papel);border-bottom:1px solid var(--borde);
+  padding:12px clamp(16px,3vw,40px);gap:18px;min-height:var(--alto-barra);
+  box-shadow:0 1px 0 var(--borde);
+}
+.marca .nombre{color:var(--texto-suave)}
+.titulo h1{color:var(--texto);font-weight:650}
+.divisor{background:var(--borde)}
+.avatar{background:linear-gradient(135deg,var(--azul-solido),var(--tinta));color:#fff}
+[data-tema="oscuro"] .avatar{background:linear-gradient(135deg,#2f63cf,#17346e);color:#fff}
+.campana-panel,.cuenta-panel{background:var(--papel-alto)}
+.rol--usuario{background:var(--azul-tenue);color:var(--azul)}
+.rol--administrador{background:var(--rojo-tenue);color:var(--rojo-oscuro)}
+.notif-boton:hover{background:var(--fondo)}
+
+/* Botón de apariencia (claro / oscuro / sistema) */
+.btn-tema{position:relative}
+.btn-tema .icono-luna{display:none}
+[data-tema="oscuro"] .btn-tema .icono-sol{display:none}
+[data-tema="oscuro"] .btn-tema .icono-luna{display:inline-block}
+.btn-tema .punto-sistema{
+  position:absolute;right:4px;bottom:4px;width:6px;height:6px;border-radius:50%;
+  background:var(--azul);display:none;
+}
+[data-tema-pref="sistema"] .btn-tema .punto-sistema{display:block}
+
+/* ==========================================================================
+   Botones y campos
+   ========================================================================== */
+.btn--primario{background:var(--azul-solido);color:#fff}
+.btn--primario:hover{background:var(--azul-solido-hover)}
+.btn--peligro{background:var(--rojo);color:#fff}
+.btn--fantasma{background:var(--papel);color:var(--texto);border-color:var(--borde-fuerte)}
+.btn--fantasma:hover{background:var(--azul-tenue);color:var(--azul);border-color:var(--azul-suave)}
+.campo > label,.pills legend{color:var(--texto-suave)}
+.campo input,.campo select,.campo textarea,.combo-entrada{
+  background:var(--papel);border-color:var(--borde-fuerte);color:var(--texto);
+}
+.campo input::placeholder,.campo textarea::placeholder{color:var(--texto-suave);opacity:.75}
+.alerta{background:var(--azul-tenue);border-color:var(--borde);border-left-color:var(--azul);color:var(--texto)}
+.alerta--error{background:var(--rojo-tenue);border-left-color:var(--rojo);color:var(--rojo-oscuro)}
+.campo-nota{background:var(--azul-tenue);color:var(--texto-suave)}
+.pie-marca{color:var(--texto-suave)}
+
+/* ==========================================================================
+   Portada del menú: ya no es un bloque azul a toda página
+   ========================================================================== */
+.portada{
+  background:var(--papel);
+  color:var(--texto);
+  border:1px solid var(--borde);
+  border-left:4px solid var(--azul-solido);
+  box-shadow:var(--sombra-suave);
+  padding:22px clamp(18px,2.4vw,30px);
+  grid-template-columns:minmax(0,1.3fr) minmax(320px,auto);
+}
+.portada::before{display:none}
+.portada-fecha{color:var(--texto-suave);opacity:1}
+.portada h2{color:var(--texto)}
+.portada h2 span{color:var(--azul)}
+.portada-bajada{color:var(--texto-suave);opacity:1}
+.portada-cifras{grid-template-columns:repeat(4,minmax(0,1fr))}
+/* Esta hoja se carga la última, así que también tiene que repetir los cortes
+   responsive: si no, su regla de escritorio gana sobre la de menu.css */
+@media (max-width:980px){
+  .portada{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:480px){
+  .portada-cifras{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+.cifra{
+  background:var(--fondo);border:1px solid var(--borde);color:var(--texto);
+  backdrop-filter:none;padding:10px 12px;
+}
+.cifra:hover{background:var(--azul-tenue);border-color:var(--azul-suave)}
+.cifra b{color:var(--azul)}
+.cifra span{color:var(--texto-suave)}
+.cifra--alerta{background:var(--rojo-tenue);border-color:#f3c7cb}
+.cifra--alerta b{color:var(--rojo-oscuro)}
+[data-tema="oscuro"] .cifra--alerta{border-color:#5a2a30}
+
+/* ==========================================================================
+   Buscador: pegado bajo el encabezado y con contraste propio
+   ========================================================================== */
+.buscador{
+  position:sticky;top:calc(var(--alto-barra) + 8px);z-index:45;
+  width:100%;margin:0;
+  background:var(--papel);border:1.5px solid var(--borde-fuerte);
+  box-shadow:var(--sombra-suave);border-radius:12px;padding:0 16px;
+}
+.buscador:focus-within{border-color:var(--azul-medio);box-shadow:0 0 0 4px var(--azul-tenue)}
+.buscador .icono{color:var(--azul)}
+.buscador input{padding:14px 0;font-size:15px;color:var(--texto)}
+.buscador input::placeholder{color:var(--texto-suave)}
+.buscador-atajo{background:var(--fondo);border-color:var(--borde);color:var(--texto-suave)}
+@media (max-width:1000px){.buscador{position:static}}
+
+/* ==========================================================================
+   Secciones y tarjetas
+   ========================================================================== */
+.seccion-cabecera h2{color:var(--texto)}
+.seccion-cabecera h2 .icono{color:var(--azul)}
+.seccion-cabecera p{color:var(--texto-suave)}
+
+.tarjeta{background:var(--papel);border-color:var(--borde)}
+.tarjeta:hover,.tarjeta:focus-within{border-color:var(--azul-suave)}
+.tarjeta-cuerpo h3{color:var(--texto)}
+.tarjeta-cuerpo p,.tarjeta-dominio{color:var(--texto-suave)}
+.tarjeta-franja{background:var(--azul-solido)}
+.tarjeta-franja:hover{background:var(--azul-solido-hover)}
+.tarjeta-etiqueta{background:rgba(11,31,69,.82)}
+[data-tema="oscuro"] .tarjeta-etiqueta{background:rgba(0,0,0,.7)}
+.tarjeta-vista{background:var(--fondo-hundido)}
+/* Las ilustraciones son SVG claros: en modo noche se apagan un poco para que
+   no sean lo más brillante de la pantalla. */
+[data-tema="oscuro"] .vista--svg svg,[data-tema="oscuro"] .vista--img{filter:brightness(.82) saturate(.9)}
+
+.pestanas{background:var(--papel);border-color:var(--borde)}
+.pestana{color:var(--texto-suave)}
+.pestana--activa{background:var(--azul-solido);color:#fff}
+.pestana--activa:hover{background:var(--azul-solido-hover)}
+.chip{background:var(--papel);border-color:var(--borde-fuerte);color:var(--texto-suave)}
+.chip--activo{background:var(--azul-solido);border-color:var(--azul-solido);color:#fff}
+
+/* ==========================================================================
+   Mosaicos de accesos por grupo
+   ========================================================================== */
+.mosaico{
+  background:var(--papel);border:1px solid var(--borde);border-radius:var(--radio);
+  box-shadow:var(--sombra-suave);overflow:hidden;margin-bottom:16px;
+}
+.mosaico > summary{
+  list-style:none;cursor:pointer;
+  display:flex;align-items:center;gap:12px;padding:14px 18px;
+  border-bottom:1px solid transparent;
+}
+.mosaico[open] > summary{border-bottom-color:var(--borde)}
+.mosaico > summary::-webkit-details-marker{display:none}
+.mosaico > summary::marker{content:""}
+.mosaico > summary:hover{background:var(--fondo)}
+.mosaico-icono{
+  flex:none;display:inline-flex;align-items:center;justify-content:center;
+  width:34px;height:34px;border-radius:10px;background:var(--azul-tenue);color:var(--azul);
+}
+.mosaico-titulo{flex:1;min-width:0}
+.mosaico-titulo b{display:block;font-size:14px;font-weight:650;color:var(--texto)}
+.mosaico-titulo span{display:block;font-size:12px;color:var(--texto-suave)}
+.mosaico-cuenta{
+  font-size:11px;font-weight:700;padding:2px 9px;border-radius:20px;
+  background:var(--fondo);border:1px solid var(--borde);color:var(--texto-suave);
+}
+.mosaico-flecha{color:var(--texto-suave);transition:transform var(--transicion)}
+.mosaico[open] .mosaico-flecha{transform:rotate(180deg)}
+.mosaico-rejilla{
+  display:grid;gap:14px;padding:16px 18px 18px;
+  grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));
+}
+/* Dentro de un mosaico las tarjetas no repiten sombra: el panel ya la tiene */
+.mosaico .tarjeta{box-shadow:none;background:var(--papel)}
+.mosaico .tarjeta:hover{box-shadow:var(--sombra-suave)}
+/* El grupo de desarrollos propios respira más: son los sistemas del día a día */
+.mosaico--propio .mosaico-rejilla{grid-template-columns:repeat(auto-fit,minmax(min(290px,100%),1fr))}
+.mosaico--propio .mosaico-icono{background:var(--rojo-tenue);color:var(--rojo)}
+
+/* ==========================================================================
+   Riel de favoritos (columna lateral en pantallas grandes)
+   ========================================================================== */
+.menu-grid{display:block}
+.riel{margin-bottom:22px}
+.riel-panel{
+  background:var(--papel);border:1px solid var(--borde);border-radius:var(--radio);
+  box-shadow:var(--sombra-suave);overflow:hidden;
+}
+.riel-panel > summary{
+  list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;
+  padding:13px 16px;font-size:13.5px;font-weight:650;color:var(--texto);
+}
+.riel-panel > summary::-webkit-details-marker{display:none}
+.riel-panel > summary::marker{content:""}
+.riel-panel > summary:hover{background:var(--fondo)}
+.riel-panel > summary .icono:first-child{color:var(--rojo)}
+.riel-titulo{flex:1}
+.riel-cuenta{
+  font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px;
+  background:var(--azul-tenue);color:var(--azul);
+}
+.riel-flecha{color:var(--texto-suave);transition:transform var(--transicion)}
+.riel-panel[open] .riel-flecha{transform:rotate(180deg)}
+.riel-lista{list-style:none;border-top:1px solid var(--borde);padding:6px}
+.riel-lista li{position:relative}
+.riel-item{
+  display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:9px;
+  text-decoration:none;color:var(--texto);font-size:12.5px;font-weight:500;
+}
+.riel-item:hover{background:var(--azul-tenue);color:var(--azul)}
+.riel-item .riel-icono{
+  flex:none;display:inline-flex;align-items:center;justify-content:center;
+  width:30px;height:30px;border-radius:8px;background:var(--fondo);color:var(--azul);
+}
+.riel-item .riel-nombre{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.riel-quitar{
+  flex:none;border:none;background:transparent;color:var(--texto-suave);
+  width:26px;height:26px;border-radius:7px;cursor:pointer;
+  display:inline-flex;align-items:center;justify-content:center;
+}
+.riel-quitar:hover{background:var(--rojo-tenue);color:var(--rojo)}
+.riel-vacio{padding:14px 16px;font-size:12px;color:var(--texto-suave);line-height:1.5;border-top:1px solid var(--borde)}
+.riel-tope{
+  padding:8px 16px 12px;font-size:11px;color:var(--texto-suave);
+  border-top:1px dashed var(--borde);
+}
+
+@media (min-width:1200px){
+  .menu-grid{
+    display:grid;grid-template-columns:minmax(0,1fr) 290px;
+    gap:22px;align-items:start;
+  }
+  .riel{position:sticky;top:calc(var(--alto-barra) + 12px);margin-bottom:0}
+}
+
+/* ==========================================================================
+   Tarjeta de Reportes BI y tarjetas de área
+   ========================================================================== */
+.bi-dep > summary{color:var(--texto)}
+.bi-dep > summary:hover{background:var(--fondo)}
+.bi-dep-icono{background:var(--azul-tenue);color:var(--azul)}
+.bi-dep li a{color:var(--texto)}
+.bi-dep li a em{background:var(--azul-tenue);color:var(--azul)}
+.bi-vacio{color:var(--texto-suave)}
+
+/* Fondo con el monograma de marca desenfocado: da identidad sin tapar el icono */
+.tarjeta-vista--area{
+  position:relative;
+  background:
+    radial-gradient(120% 120% at 20% 10%, var(--azul-tenue) 0%, var(--fondo-hundido) 70%);
+  overflow:hidden;
+}
+.tarjeta-vista--area::before{
+  content:"";position:absolute;inset:-18%;
+  background:var(--marca-agua) no-repeat center/62% auto;
+  filter:blur(7px) saturate(1.05);
+  opacity:.4;transform:rotate(-8deg) scale(1.05);
+  transition:transform .6s cubic-bezier(.2,.7,.2,1), opacity .4s ease;
+}
+.tarjeta:hover .tarjeta-vista--area::before{transform:rotate(-8deg) scale(1.14);opacity:.5}
+[data-tema="oscuro"] .tarjeta-vista--area::before{opacity:.22}
+.area-icono{
+  width:92px;height:92px;border-radius:26px;
+  background:var(--papel);color:var(--azul);
+  box-shadow:0 10px 26px rgba(16,24,40,.16);
+  border:1px solid var(--borde);
+}
+[data-tema="oscuro"] .area-icono{box-shadow:0 10px 26px rgba(0,0,0,.5)}
+.area-minis{opacity:.85}
+.area-minis i{background:var(--azul-medio)}
+.tarjeta--compacta .area-icono{width:62px;height:62px;border-radius:18px}
+
+/* ==========================================================================
+   Página de un área
+   ========================================================================== */
+.area-cabecera{background:var(--papel);border-color:var(--borde);border-left-color:var(--rojo)}
+.area-cabecera h2{color:var(--texto)}
+.area-cabecera p,.migas,.migas a{color:var(--texto-suave)}
+.area-cabecera-icono{background:linear-gradient(135deg,var(--azul-solido),var(--tinta));color:#fff}
+[data-tema="oscuro"] .area-cabecera-icono{background:linear-gradient(135deg,#2f63cf,#17346e)}
+.bi-indice{background:var(--papel);border-color:var(--borde)}
+.bi-indice a{color:var(--texto)}
+.bi-indice a.activo{background:var(--azul-solido);color:#fff}
+.reporte{background:var(--papel);border-color:var(--borde)}
+.reporte-titulo h3{color:var(--texto)}
+.reporte-titulo p{color:var(--texto-suave)}
+.reporte-marco{background:var(--fondo-hundido);border-color:var(--borde)}
+.reporte-demo{background:var(--ambar-tenue);color:var(--ambar);border-color:var(--ambar)}
+.saltar{color:var(--texto-suave)}
+.saltar select{background:var(--papel);border-color:var(--borde-fuerte);color:var(--texto)}
+
+/* Etiquetas de tipo de reporte: menos azul, más diferencia entre niveles */
+.tipo--direccion    {background:var(--tinta);color:var(--papel)}
+[data-tema="oscuro"] .tipo--direccion{background:#33478a;color:#fff}
+.tipo--gerencial    {background:var(--azul-solido);color:#fff}
+.tipo--operativo    {background:var(--azul-tenue);color:var(--azul);border-color:var(--azul-suave)}
+.tipo--control      {background:var(--rojo-tenue);color:var(--rojo-oscuro);border-color:var(--rojo)}
+.tipo--supervision  {background:var(--fondo-hundido);color:var(--texto);border-color:var(--borde-fuerte)}
+.tipo--planificacion{background:var(--ambar-tenue);color:var(--ambar);border-color:var(--ambar)}
+.tipo--asistencia   {background:var(--verde-tenue);color:var(--verde-oscuro);border-color:var(--verde)}
+
+/* ==========================================================================
+   Paneles de administración: cabecera clara con acento, no bloque azul
+   ========================================================================== */
+.tarjeta-panel{background:var(--papel);border-color:var(--borde)}
+.tarjeta-panel > header,
+.panel-plegable > summary{
+  background:var(--papel);color:var(--texto);
+  border-bottom:1px solid var(--borde);
+  box-shadow:inset 3px 0 0 var(--azul-solido);
+}
+.tarjeta-panel > header h2,.panel-plegable > summary h2{color:var(--texto)}
+.tarjeta-panel > header p,.panel-plegable > summary p{color:var(--texto-suave)}
+.tarjeta-panel > header strong{color:var(--texto)}
+.menu-exp-boton-claro{background:var(--azul-solido);color:#fff;border-color:transparent}
+.menu-exp-boton-claro:hover{background:var(--azul-solido-hover);color:#fff}
+.dep-icono{background:var(--azul-tenue);color:var(--azul)}
+.admin-nav{background:var(--papel);border-color:var(--borde)}
+.admin-nav a{color:var(--texto-suave)}
+.admin-nav a.activo{background:var(--azul-solido);color:#fff}
+.barra-filtros{background:var(--fondo);border-color:var(--borde)}
+.tabla-resumen{background:var(--papel);border-color:var(--borde);color:var(--texto-suave)}
+.tabla-resumen strong{color:var(--texto)}
+thead th{background:var(--fondo);color:var(--texto-suave);border-color:var(--borde)}
+tbody td{border-color:var(--borde);color:var(--texto)}
+tbody tr:not(.fila-edicion):hover td{background:var(--fondo)}
+.fila-edicion > td,.fila-edicion--bloque{background:var(--fondo)}
+.form-edicion .titulo-edicion{color:var(--azul)}
+.celda-titulo .nombre{color:var(--texto)}
+.correo,.correo a{color:var(--texto-suave)}
+.paginador{border-color:var(--borde)}
+.paginador-btn{background:var(--papel);border-color:var(--borde-fuerte);color:var(--azul)}
+.paginador-btn--activo{background:var(--azul-solido);border-color:var(--azul-solido);color:#fff}
+span.paginador-btn:not(.paginador-btn--activo){background:var(--fondo);color:var(--texto-suave)}
+.paginador-cuenta{color:var(--texto-suave)}
+.paginador-cuenta strong{color:var(--texto)}
+.pastilla{background:var(--fondo-hundido);color:var(--texto-suave)}
+.pastilla--publico{background:var(--azul-tenue);color:var(--azul)}
+.pastilla--activo{background:var(--verde-tenue);color:var(--verde-oscuro)}
+.pastilla--inactivo{background:var(--rojo-tenue);color:var(--rojo-oscuro)}
+.sin-acceso,.yo{background:var(--fondo-hundido);color:var(--texto-suave)}
+.tabla-vacia{color:var(--texto-suave)}
+.mini-vista{background:var(--fondo-hundido);border-color:var(--borde)}
+.icono-opcion span{background:var(--papel);border-color:var(--borde-fuerte);color:var(--texto-suave)}
+.icono-opcion input:checked + span{background:var(--azul-solido);border-color:var(--azul-solido);color:#fff}
+.accesos-buscar{background:var(--papel);border-color:var(--borde-fuerte)}
+.accesos-buscar input{background:transparent;color:var(--texto)}
+.casillas--usuarios .casilla:hover{background:var(--azul-tenue)}
+.casilla{color:var(--texto)}
+.campo-ayuda{color:var(--texto-suave)}
+.campo-ayuda code{background:var(--azul-tenue);color:var(--azul)}
+.enlace-suave{color:var(--azul)}
+
+/* ---------- Acceso (login) ---------- */
+.acceso{background:var(--fondo)}
+.acceso-tarjeta{background:var(--papel);border-color:var(--borde)}
+.acceso-cabecera{border-color:var(--borde)}
+.acceso-cabecera h1{color:var(--texto)}
+.acceso-cabecera p,.acceso-pie{color:var(--texto-suave)}
+.recordarme{color:var(--texto-suave)}
+[data-tema="oscuro"] .burbuja{opacity:.1}
+[data-tema="oscuro"] .acceso-cabecera .logo-marca{filter:brightness(1.6) contrast(1.05)}
+.ver-clave{color:var(--texto-suave)}
+
+/* ---------- Toasts y menús flotantes ---------- */
+.toast{background:var(--tinta)}
+[data-tema="oscuro"] .toast{background:#27324a;color:#fff}
+.menu-fila,.menu-exp-lista,.combo-lista{background:var(--papel-alto);border-color:var(--borde)}
+.menu-fila button,.menu-exp-lista a,.combo-lista li{color:var(--texto)}
+.menu-fila button:hover,.menu-exp-lista a:hover,.combo-lista li:hover{background:var(--azul-tenue);color:var(--azul)}
+
+/* ---------- Flechas de orden (admin) ---------- */
+.flechas-orden { display: inline-flex; gap: 4px; }
+.flechas-orden form { display: contents; }
+.flecha-orden {
+  display: inline-grid; place-items: center;
+  width: 28px; height: 28px; padding: 0;
+  border: 1px solid var(--borde); border-radius: 8px;
+  background: var(--papel); color: var(--texto-suave);
+  cursor: pointer; transition: background .15s, color .15s, border-color .15s;
+}
+.flecha-orden:hover:not(:disabled) { background: var(--azul-tenue); color: var(--azul); border-color: var(--azul-suave); }
+.flecha-orden:disabled { opacity: .3; cursor: default; }
+
+
+/* ==========================================================================
+   Tarjeta de Reportes BI: panel ancho, no una tarjeta más de la rejilla
+   ========================================================================== */
+.rejilla--bi{display:block}
+.tarjeta--bi{width:100%}
+
+@media (min-width:900px){
+  .tarjeta--bi{
+    display:grid;
+    grid-template-columns:minmax(0,340px) minmax(0,1fr);
+    grid-template-areas:"vista cuerpo" "vista arbol";
+    align-items:start;
+  }
+  .tarjeta--bi .tarjeta-vista--bi{
+    grid-area:vista;align-self:stretch;height:auto;min-height:230px;display:block;
+    background:linear-gradient(135deg,#063381,#04205a);
+  }
+  .tarjeta--bi .tarjeta-vista--bi .bi-ilustracion{position:absolute;inset:0;width:100%;height:100%}
+  .tarjeta--bi .tarjeta-cuerpo{grid-area:cuerpo}
+  .tarjeta--bi .bi-vacio{grid-area:arbol}
+  .tarjeta--bi .bi-arbol{
+    grid-area:arbol;
+    columns:2;column-gap:16px;
+  }
+  .tarjeta--bi .bi-dep{break-inside:avoid;margin-bottom:8px}
+}
+@media (min-width:1500px){
+  .tarjeta--bi .bi-arbol{columns:3}
+}
