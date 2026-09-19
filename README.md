@@ -3,8 +3,14 @@
 Aplicación **Laravel 12** con la portada de accesos y el **Tablero Gerencial y de
 Directorio** del Portafolio de Transformación de Plásticos Carmen S.R.L.
 
-Reemplaza al sitio estático anterior: las iniciativas y las actividades ahora viven
-en una base de datos y se actualizan desde una pantalla, sin tocar el código.
+Las iniciativas y las actividades viven en una base de datos y se actualizan desde una
+pantalla, sin tocar el código.
+
+**El sitio publicado sale de acá.** GitHub no ejecuta PHP, así que Laravel es la
+fuente y `php artisan sitio:exportar` escribe el sitio ya renderizado en la raíz del
+repositorio, que es lo que sirve GitHub Pages:
+
+<https://alanbritoabmlabml-byte.github.io/Portafolio-v4.0/>
 
 ## Qué hay adentro
 
@@ -49,6 +55,8 @@ app/
     Portafolio.php   filas → paquete JSON del tablero y cifras de la portada
     RepositorioPortafolio.php   único punto de lectura
   Http/Controllers/  Portada · Tablero · Carga
+app/Console/Commands/
+  ExportarSitio.php  Laravel → sitio estático (lo que publica Pages)
 config/accesos.php   las tarjetas de la portada, como datos
 database/
   migrations/        iniciativas · actividades · cargas
@@ -56,6 +64,10 @@ database/
   data/              el export con el que arranca el sistema
 resources/views/     layout + portada, tablero y carga
 public/              css, js, img y el tablero de asistencia
+index.html           }
+tablero/             } el sitio ya renderizado que publica Pages:
+css/ js/ img/        } sale de sitio:exportar, NO se edita a mano
+asistencia/          }
 ```
 
 **Los identificadores no son autoincrementales**: son los mismos números que usa el
@@ -143,18 +155,35 @@ persistente) la base se reconstruye desde `database/data/*.csv` en cada arranque
 pierde lo que se haya subido por `/carga`. Para dejar un export fijo, reemplaza esos
 dos CSV en el repositorio; para que la carga persista, usa MySQL o monta un volumen.
 
-## Actualizar los datos
+## Actualizar los datos y republicar
 
-1. Exporta iniciativas y actividades desde el Portafolio de Transformación.
-2. Entra a `/carga`, sube los dos CSV y confirma.
+El sitio publicado es estático: se regenera y se sube. Son tres pasos, y en Windows
+los tres los hace `exportar-sitio.bat` de un doble clic.
 
-Los dos archivos **reemplazan por completo** lo que hay; no se mezclan. Una actividad
-cuya iniciativa no vino en el export no se descarta: queda suelta y se ve igual en el
+1. **Cargar el export nuevo.** Levanta el proyecto (`iniciar-local.bat`), entra a
+   `/carga` y sube los dos CSV que exporta el Portafolio de Transformación.
+   La alternativa sin levantar nada: reemplaza `database/data/iniciativas.csv` y
+   `database/data/actividades.csv` y corre `php artisan migrate:fresh --seed`.
+2. **Regenerar el sitio.** `php artisan sitio:exportar` reescribe los archivos publicados.
+3. **Publicar.** `git add -A && git commit -m "Actualizar el sitio publicado" && git push`.
+   Pages se actualiza sola en un par de minutos.
+
+Los dos CSV **reemplazan por completo** lo que hay; no se mezclan. Una actividad cuya
+iniciativa no vino en el export no se descarta: queda suelta y se ve igual en el
 explorador.
 
 El lector acepta separador `;` o `,`, con o sin BOM, y busca las columnas sin
 distinguir acentos ni mayúsculas. Si falta una columna, esa información queda vacía y
 el resto se carga igual.
+
+### Las dos caras del proyecto
+
+| | Laravel (el proyecto) | Sitio publicado (los archivos de la raíz) |
+|---|---|---|
+| Dónde corre | tu equipo o un servidor con PHP | GitHub Pages |
+| Datos | base de datos, en vivo | `tablero/datos.json`, congelado en la última exportación |
+| Pantalla de carga | sí, en `/carga` | no: se actualiza exportando |
+| Para qué sirve | trabajar, cargar exports, desarrollar | que cualquiera vea el tablero con un enlace |
 
 ### Enlaces y comentarios
 
